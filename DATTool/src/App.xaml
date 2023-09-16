@@ -1,0 +1,9 @@
+﻿<Application x:Class="DATTool.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DATTool"
+             StartupUri="src/MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
