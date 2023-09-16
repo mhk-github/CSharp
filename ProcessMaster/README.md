@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-A C# WPF .NET Framework application to to set process priorities.
+A C# WPF .NET Framework application to set process priorities.
 
 ## Usage
 
