@@ -45,8 +45,19 @@ namespace ProcessMaster
         // MEMBER DATA
         ///////////////////////////////////////////////////////////////////////
 
+        /// <summary>
+        /// The list of processes to set to idle priority.
+        /// </summary>
         private readonly string[] _idleProcessList;
+
+        /// <summary>
+        /// The list of processes to set to high priority.
+        /// </summary>
         private readonly string[] _highProcessList;
+        
+        /// <summary>
+        /// The number of milliseconds to wait before checking processes.
+        /// </summary>
         private readonly int _sleepTime;
 
         ///////////////////////////////////////////////////////////////////////
