@@ -10,6 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -237,8 +238,15 @@ namespace ProcessMaster
                         catch (InvalidOperationException ioe)
                         {
                             s_log.Warn(
-                                $"    Exception {ioe.GetType()} with message "
+                                $"    {ioe.GetType()} with message "
                                 + $"'{ioe.Message}' !"
+                            );
+                        }
+                        catch (Win32Exception we)
+                        {
+                            s_log.Error(
+                                $"    {we.GetType()} with message "
+                                + $"'{we.Message}' !"
                             );
                         }
                         catch (Exception e)
