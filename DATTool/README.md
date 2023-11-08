@@ -29,5 +29,7 @@ The application takes no arguments and can be run in either of these 2 ways:
   - Directory for all source code
 
 ## Files:
+- *dattool_icon_256x256.ico*
+  - The application icon
 - *packages.config*
   - Packages configuration file
