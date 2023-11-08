@@ -8,8 +8,8 @@ A C# WPF .NET Framework application to check file digests.
 
 The application takes no arguments and can be run in either of these 2 ways:
 
--# Double-click the executable in Windows
--# At the command line run ``.\Checksum.exe``
+1. Double-click the executable in Windows
+2. At the command line run ```.\Checksum.exe```
 
 ## Directories:
 - *etc*
