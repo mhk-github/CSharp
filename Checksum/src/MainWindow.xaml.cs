@@ -712,7 +712,7 @@ namespace Checksum
             var statedHash = statedChecksum.Text;
             if (hexString == statedHash)
             {
-                calculatedChecksum.Content = $"Match: {hexString}";
+                calculatedChecksum.Content = "Match";
                 calculatedChecksum.Background = Brushes.Green;
                 s_log.Debug(
                     $"    Stated hash '{statedHash}' matches calculated "
@@ -721,7 +721,7 @@ namespace Checksum
             }
             else 
             {
-                calculatedChecksum.Content = $"Mismatch: {hexString}";
+                calculatedChecksum.Content = "Mismatch";
                 calculatedChecksum.Background = Brushes.Red;
                 s_log.Warn(
                     $"    Stated hash '{statedHash}' does not match "

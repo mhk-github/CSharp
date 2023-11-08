@@ -9,13 +9,13 @@
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"
         Title="Checksum v0.1" 
-        Width="900"
-        Height="340" 
+        Width="480"
+        Height="370" 
     >
     <Grid Background="LightGray">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="50"/>
@@ -37,6 +37,7 @@
             <TextBox
                 x:Name="statedChecksum"
                 ToolTip="Copy-paste a checksum here"
+                TextWrapping="Wrap"
             />
         </GroupBox>
         
@@ -74,6 +75,7 @@
                     Grid.Column="0" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 1 (160 bits)"
                 > 
                     SHA-1
                 </RadioButton>
@@ -88,6 +90,7 @@
                     Grid.Column="1" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 2 (224 bits)"
                 > 
                     SHA-224
                 </RadioButton>
@@ -102,6 +105,7 @@
                     Grid.Column="1" 
                     Grid.ColumnSpan="1"
                     IsChecked="True"
+                    ToolTip="Secure Hash Algorithm 2 (256 bits)"
                 > 
                     SHA-256
                 </RadioButton>
@@ -116,6 +120,7 @@
                     Grid.Column="1" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 2 (384 bits)"
                 > 
                     SHA-384
                 </RadioButton>
@@ -130,6 +135,7 @@
                     Grid.Column="1" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 2 (512 bits)"
                 > 
                     SHA-512
                 </RadioButton>
@@ -144,6 +150,7 @@
                     Grid.Column="2" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 3 (224 bits)"
                 > 
                     SHA3-224
                 </RadioButton>
@@ -158,6 +165,7 @@
                     Grid.Column="2" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 3 (256 bits)"
                 > 
                     SHA3-256
                 </RadioButton>
@@ -172,6 +180,7 @@
                     Grid.Column="2" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 3 (384 bits)"
                 > 
                     SHA3-384
                 </RadioButton>
@@ -186,6 +195,7 @@
                     Grid.Column="2" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="Secure Hash Algorithm 3 (512 bits)"
                 > 
                     SHA3-512
                 </RadioButton>
@@ -200,6 +210,7 @@
                     Grid.Column="3" 
                     Grid.ColumnSpan="1"
                     IsChecked="False"
+                    ToolTip="MD5 (128 bits)"
                 > 
                     MD5
                 </RadioButton>
@@ -228,8 +239,6 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Button 
@@ -240,7 +249,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="1"
-                    ToolTip="Open file to calculate checksum for"
+                    ToolTip="Select a file"
                 >
                     File ...
                 </Button>
@@ -253,7 +262,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Grid.ColumnSpan="1"
-                    ToolTip="Calculate the file hash"
+                    ToolTip="Apply the selected hash function to the file"
                     IsEnabled="False"
                 >
                     Hash
@@ -276,8 +285,8 @@
                 Background="LightGray"
                 Foreground="White"
                 FontWeight="Bold"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
             />
         </GroupBox>
         
