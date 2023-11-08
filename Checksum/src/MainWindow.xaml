@@ -1,0 +1,299 @@
+﻿<Window x:Class="Checksum.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Checksum"
+        mc:Ignorable="d"
+        Unloaded="Window_Unloaded"
+        WindowStyle="ToolWindow"
+        ResizeMode="NoResize"
+        Title="Checksum v0.1" 
+        Width="900"
+        Height="340" 
+    >
+    <Grid Background="LightGray">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+                    
+        <GroupBox
+            Header="Stated Checksum" 
+            Margin="4,2,4,2" 
+            Padding="0,0,0,0"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+        >
+            <TextBox
+                x:Name="statedChecksum"
+                ToolTip="Copy-paste a checksum here"
+            />
+        </GroupBox>
+        
+        <GroupBox
+            Header="Hashes" 
+            Margin="4,2,4,2" 
+            Padding="0,0,0,0" 
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+        >
+            <Grid>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <RadioButton 
+                    x:Name="SHA1_Radio_Button"
+                    Click="SHA1_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA-1
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA224_Radio_Button" 
+                    Click="SHA224_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="0" 
+                    Grid.Column="1" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA-224
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA256_Radio_Button" 
+                    Click="SHA256_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="1" 
+                    Grid.Column="1" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="True"
+                > 
+                    SHA-256
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA384_Radio_Button" 
+                    Click="SHA384_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="2" 
+                    Grid.Column="1" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA-384
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA512_Radio_Button" 
+                    Click="SHA512_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="3" 
+                    Grid.Column="1" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA-512
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA3_224_Radio_Button" 
+                    Click="SHA3_224_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="0" 
+                    Grid.Column="2" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA3-224
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA3_256_Radio_Button" 
+                    Click="SHA3_256_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="1" 
+                    Grid.Column="2" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA3-256
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA3_384_Radio_Button" 
+                    Click="SHA3_384_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="2" 
+                    Grid.Column="2" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA3-384
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="SHA3_512_Radio_Button" 
+                    Click="SHA3_512_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="3" 
+                    Grid.Column="2" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    SHA3-512
+                </RadioButton>
+                
+                <RadioButton 
+                    x:Name="MD5_Radio_Button" 
+                    Click="MD5_Radio_Button_Click"
+                    GroupName="Hashes" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="0" 
+                    Grid.Column="3" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                > 
+                    MD5
+                </RadioButton>
+                
+            </Grid>
+            
+        </GroupBox>
+
+        <GroupBox
+            Header="Actions" 
+            Margin="4,2,4,2" 
+            Padding="0,0,0,0" 
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+        >
+        
+            <Grid>
+            
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    x:Name="openFileButton" 
+                    Click="Open_File_Button_Click"
+                    Margin="5,2,5,2" 
+                    Padding="1,1,1,1"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="1"
+                    ToolTip="Open file to calculate checksum for"
+                >
+                    File ...
+                </Button>
+
+                <Button 
+                    x:Name="calculateHashButton" 
+                    Click="Calculate_Hash_Button_Click"
+                    Margin="5,2,5,2" 
+                    Padding="1,1,1,1"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="1"
+                    ToolTip="Calculate the file hash"
+                    IsEnabled="False"
+                >
+                    Hash
+                </Button>
+                
+            </Grid>
+
+        </GroupBox>
+
+        <GroupBox
+            Header="Result" 
+            Margin="4,2,4,2" 
+            Padding="0,0,0,0" 
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+        >
+            <Label
+                x:Name="calculatedChecksum"
+                Background="LightGray"
+                Foreground="White"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+            />
+        </GroupBox>
+        
+        <StatusBar 
+            Margin="0,0,0,0" 
+            Padding="0,2,0,2" 
+            Background="LightGray"
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+        >
+            <StatusBarItem>
+                <TextBlock x:Name="statusBarText" Text="Ready" />
+            </StatusBarItem>
+        </StatusBar>
+        
+    </Grid>
+    
+</Window>
