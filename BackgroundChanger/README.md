@@ -8,7 +8,7 @@ A C# WPF .NET Framework application to change Windows desktop backgrounds.
 
 The application takes one or more space-separated directories as arguments thus:
 
--# At the command line run ``.\BackgroundChanger.exe dir1 [dir2 ...]``
+- At the command line run ``.\BackgroundChanger.exe dir1 [dir2 ...]``
 
 ### Structure
 
