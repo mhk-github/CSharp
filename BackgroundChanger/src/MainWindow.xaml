@@ -1,0 +1,151 @@
+﻿<Window x:Class="BackgroundChanger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BackgroundChanger"
+        mc:Ignorable="d"
+        Unloaded="Window_Unloaded"
+        StateChanged="Window_StateChanged"
+        ResizeMode="CanMinimize"
+        Title="BackgroundChanger (v0.1)"
+        Width="500"
+        Height="245" 
+    >
+    
+    <Grid Background="LightGray">
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox
+            Header="Position"
+            Margin="4,2,4,2"
+            Padding="0,0,0,0"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="1"
+        >
+            <Grid>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                    <RowDefinition Height="25" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <RadioButton 
+                    x:Name="Fill_Radio_Button"
+                    Click="Fill_Radio_Button_Click"
+                    GroupName="Positions" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                    ToolTip="Fill the desktop background"
+                >
+                    Fill
+                </RadioButton>
+
+                <RadioButton 
+                    x:Name="Fit_Radio_Button"
+                    Click="Fit_Radio_Button_Click"
+                    GroupName="Positions" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                    ToolTip="Fit to the desktop"
+                >
+                    Fit
+                </RadioButton>
+
+                <RadioButton 
+                    x:Name="Stretch_Radio_Button"
+                    Click="Stretch_Radio_Button_Click"
+                    GroupName="Positions" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="2" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                    ToolTip="Stretch the desktop background"
+                >
+                    Stretch
+                </RadioButton>
+
+                <RadioButton 
+                    x:Name="Centre_Radio_Button"
+                    Click="Centre_Radio_Button_Click"
+                    GroupName="Positions" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="3" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                    ToolTip="Centre the desktop background"
+                >
+                    Centre
+                </RadioButton>
+
+                <RadioButton 
+                    x:Name="Tile_Radio_Button"
+                    Click="Tile_Radio_Button_Click"
+                    GroupName="Positions" 
+                    Margin="4,2,4,2" 
+                    Padding="5,0,0,0" 
+                    Grid.Row="4" 
+                    Grid.Column="0" 
+                    Grid.ColumnSpan="1"
+                    IsChecked="False"
+                    ToolTip="Tile the desktop background"
+                >
+                    Tile
+                </RadioButton>
+
+            </Grid>
+
+        </GroupBox>
+
+        <GroupBox
+            Header="Images"
+            Margin="4,2,4,2"
+            Padding="0,0,0,0"
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="1"
+        >
+            <ListBox
+                x:Name="ImagesListBox"
+                ScrollViewer.CanContentScroll="True"
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                SelectionChanged="ImagesListBox_SelectionChanged"
+                SelectionMode="Single"
+                Margin="0,0,0,0"
+                Padding="0,0,5,0"
+            >
+            </ListBox>
+        </GroupBox>
+        
+    </Grid>
+    
+</Window>
