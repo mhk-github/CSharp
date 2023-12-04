@@ -335,17 +335,17 @@ namespace BackgroundChanger
          * Updates the registry whenever a radio button is clicked.
          * </summary>
          *
-         * <param name="tile">
-         * Tile value to set in registry.
-         * </param>
-         *
          * <param name="position">
          * Position value to set in registry.
          * </param>
+         *
+         * <param name="tile">
+         * Tile value to set in registry.
+         * </param>
          */
-        private void UpdateRegistry(int tile = TILE_OFF, int position = FIT)
+        private void UpdateRegistry(int position = FIT, int tile = TILE_OFF)
         {
-            s_log.Debug($"    Enter - UpdateRegistry({tile}, {position})");
+            s_log.Debug($"    Enter - UpdateRegistry({position}, {tile})");
 
             var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
             if (tile == TILE_ON)
@@ -398,7 +398,7 @@ namespace BackgroundChanger
                 $"  Enter - Fill_Radio_Button_Click({sender}, {e})"
             );
 
-            UpdateRegistry(position: FILL);
+            UpdateRegistry(FILL);
             if (_file != "")
             {
                 ChangeBackground();
@@ -460,7 +460,7 @@ namespace BackgroundChanger
                 $"  Enter - Stretch_Radio_Button_Click({sender}, {e})"
             );
 
-            UpdateRegistry(position: STRETCH);
+            UpdateRegistry(STRETCH);
             if (_file != "")
             {
                 ChangeBackground();
@@ -491,7 +491,7 @@ namespace BackgroundChanger
                 $"  Enter - Centre_Radio_Button_Click({sender}, {e})"
             );
 
-            UpdateRegistry(position: CENTRE);
+            UpdateRegistry(CENTRE);
             if (_file != "")
             {
                 ChangeBackground();
@@ -519,7 +519,7 @@ namespace BackgroundChanger
                 $"  Enter - Tile_Radio_Button_Click({sender}, {e})"
             );
 
-            UpdateRegistry(TILE_ON);
+            UpdateRegistry(tile: TILE_ON);
             if (_file != "")
             {
                 ChangeBackground();
