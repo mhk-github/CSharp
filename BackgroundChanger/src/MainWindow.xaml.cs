@@ -332,6 +332,37 @@ namespace BackgroundChanger
 
         /**
          * <summary>
+         * Updates the registry whenever a radio button is clicked.
+         * </summary>
+         *
+         * <param name="tile">
+         * Tile value to set in registry.
+         * </param>
+         *
+         * <param name="position">
+         * Position value to set in registry.
+         * </param>
+         */
+        private void UpdateRegistry(int tile = TILE_OFF, int position = FIT)
+        {
+            s_log.Debug($"    Enter - UpdateRegistry({tile}, {position})");
+
+            var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
+            if (tile == TILE_ON)
+            {
+                key.SetValue(TILE_WALLPAPER_KEY, TILE_ON.ToString());
+            }
+            else 
+            {
+                key.SetValue(WALLPAPER_STYLE_KEY, position.ToString());
+                key.SetValue(TILE_WALLPAPER_KEY, TILE_OFF.ToString());
+            }
+
+            s_log.Debug("    Leave - UpdateRegistry(...)");
+        }
+
+        /**
+         * <summary>
          * Changes the desktop background.
          * </summary>
          */
@@ -367,9 +398,7 @@ namespace BackgroundChanger
                 $"  Enter - Fill_Radio_Button_Click({sender}, {e})"
             );
 
-            var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
-            key.SetValue(WALLPAPER_STYLE_KEY, FILL.ToString());
-            key.SetValue(TILE_WALLPAPER_KEY, TILE_OFF.ToString());
+            UpdateRegistry(position: FILL);
             if (_file != "")
             {
                 ChangeBackground();
@@ -400,9 +429,7 @@ namespace BackgroundChanger
                 $"  Enter - Fit_Radio_Button_Click({sender}, {e})"
             );
 
-            var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
-            key.SetValue(WALLPAPER_STYLE_KEY, FIT.ToString());
-            key.SetValue(TILE_WALLPAPER_KEY, TILE_OFF.ToString());
+            UpdateRegistry();
             if (_file != "")
             {
                 ChangeBackground();
@@ -433,9 +460,7 @@ namespace BackgroundChanger
                 $"  Enter - Stretch_Radio_Button_Click({sender}, {e})"
             );
 
-            var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
-            key.SetValue(WALLPAPER_STYLE_KEY, STRETCH.ToString());
-            key.SetValue(TILE_WALLPAPER_KEY, TILE_OFF.ToString());
+            UpdateRegistry(position: STRETCH);
             if (_file != "")
             {
                 ChangeBackground();
@@ -466,9 +491,7 @@ namespace BackgroundChanger
                 $"  Enter - Centre_Radio_Button_Click({sender}, {e})"
             );
 
-            var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
-            key.SetValue(WALLPAPER_STYLE_KEY, CENTRE.ToString());
-            key.SetValue(TILE_WALLPAPER_KEY, TILE_OFF.ToString());
+            UpdateRegistry(position: CENTRE);
             if (_file != "")
             {
                 ChangeBackground();
@@ -496,8 +519,7 @@ namespace BackgroundChanger
                 $"  Enter - Tile_Radio_Button_Click({sender}, {e})"
             );
 
-            var key = Registry.CurrentUser.OpenSubKey(REGISTRY_KEY, true);
-            key.SetValue(TILE_WALLPAPER_KEY, TILE_ON.ToString());
+            UpdateRegistry(TILE_ON);
             if (_file != "")
             {
                 ChangeBackground();
