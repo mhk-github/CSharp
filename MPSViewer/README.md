@@ -8,8 +8,8 @@ A C# WPF .NET Framework application to analyze MPS files.
 
 The application takes no arguments and can be run in either of these 2 ways:
 
--# Double-click the executable in Windows
--# At the command line run ``.\MPSViewer.exe``
+1. Double-click the executable in Windows
+2. At the command line run ``MPSViewer.exe``
 
 ### Structure
 
