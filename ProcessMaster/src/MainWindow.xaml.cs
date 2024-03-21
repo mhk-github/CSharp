@@ -1,8 +1,11 @@
-﻿////////////////////////////////////////////////////////////////////////////////
-// FILE     : MainWindow.xaml.cs
-// SYNOPSIS : Main application window C# source file.
-// LICENSE  : MIT
-////////////////////////////////////////////////////////////////////////////////
+﻿/**
+ * @file MainWindow.xaml.cs
+ * @brief Implementation C# file for the main window of this application.
+ *
+ * @author Mohammad Haroon Khaliq
+ * @date @showdate "%d %B %Y"
+ * @copyright MIT License.
+ */
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -26,18 +29,22 @@ using log4net;
 
 namespace ProcessMaster
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /**
+     * <summary>
+     * Interaction logic for MainWindow.xaml
+     * </summary>
+     */
     public sealed partial class MainWindow : Window
     {
-        ///////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
         // STATIC
-        ///////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        /// The logging system.
-        /// </summary>
+        /**
+         * <summary>
+         * The logging system.
+         * </summary>
+         */
         private static readonly ILog s_log = LogManager.GetLogger(
             System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
         );
@@ -46,24 +53,30 @@ namespace ProcessMaster
         // MEMBER DATA
         ///////////////////////////////////////////////////////////////////////
 
-        /// <summary>
-        /// The list of processes to set to idle priority.
-        /// </summary>
+        /**
+         * <summary>
+         * The list of processes to set to idle priority.
+         * </summary>
+         */
         private readonly string[] _idleProcessList;
 
-        /// <summary>
-        /// The list of processes to set to high priority.
-        /// </summary>
+        /**
+         * <summary>
+         * The list of processes to set to high priority.
+         * </summary>
+         */
         private readonly string[] _highProcessList;
         
-        /// <summary>
-        /// The number of milliseconds to wait before checking processes.
-        /// </summary>
+        /**
+         * <summary>
+         * The number of milliseconds to wait before checking processes.
+         * </summary>
+         */
         private readonly int _sleepTime;
-
-        ///////////////////////////////////////////////////////////////////////
+        
+        ////////////////////////////////////////////////////////////////////////
         // MEMBER FUNCTIONS
-        ///////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
 
         /**
          * <summary>
@@ -123,14 +136,13 @@ namespace ProcessMaster
             s_log.Info($"    Sleep time (ms) = '{sleepTime}'");
             s_log.Info($"    Idle process list: '{idleProcesses}'");
             s_log.Info($"    High process list: '{highProcesses}'");
+
             s_log.Debug("  Enter - MainWindow()");
             s_log.Debug("    'ProcessMaster' priority set to Idle");
 
-            // ...
-
             // Set the member data
-            _idleProcessList = idleProcesses.Split(';');
-            _highProcessList = highProcesses.Split(';');
+            _idleProcessList = idleProcesses.Split('|');
+            _highProcessList = highProcesses.Split('|');
             _sleepTime = sleepTime;
 
             // Set up the main window
@@ -143,26 +155,19 @@ namespace ProcessMaster
             Width = mainWindowWidth;
             Height = mainWindowHeight;
 
-            foreach (var e in _idleProcessList)
-            {
-                idleBox.Items.Add(e);
-            }
-
-            foreach (var e in _highProcessList)
-            {
-                highBox.Items.Add(e);
-            }
+            idleBox.Text = idleProcesses.Replace('|', '\n');
+            highBox.Text = highProcesses.Replace('|', '\n');
 
             s_log.Debug(
                 $"    Geometry set to dimensions {Width}x{Height} at "
                 + $"position ({Left},{Top})"
             );
 
+            CheckProcesses();
+
             // MHK: Note - This is dealing with a known issue in C# with WPF
             Dispatcher.ShutdownStarted += Window_Unloaded;
             s_log.Debug("    Registered 'Window_Unloaded' event handler");
-
-            CheckProcesses();
 
             s_log.Debug("  Leave - MainWindow()");
         }
@@ -176,22 +181,23 @@ namespace ProcessMaster
          * Originator of this event.
          * </param>
          *
-         * <param name="e">
+         * <param name="ae">
          * Arguments connected to this event.
          * </param>
          */
-        private void Window_Unloaded(object sender, EventArgs e)
+        private void Window_Unloaded(object sender, EventArgs ea)
         {
-            s_log.Debug($"  Enter - Window_Unloaded({sender}, {e})");
-
+            s_log.Debug($"  Enter - Window_Unloaded({sender}, {ea})");
             s_log.Debug("  Leave - Window_Unloaded(...)");
-            s_log.Debug("  Leave - CheckProcesses()");
+            s_log.Debug("    Leave - CheckProcesses()");
             s_log.Info("ProcessMaster - End");
         }
 
-        /// <summary>
-        /// Periodically checks processes and sets their priority class.
-        /// </summary>
+        /**
+         * <summary>
+         * Periodically checks processes and sets their priority class.
+         * </summary>
+         */
         async private void CheckProcesses()
         {
             /**
@@ -263,7 +269,8 @@ namespace ProcessMaster
                 return msg;
             }
 
-            s_log.Debug("  Enter - CheckProcesses()");
+            s_log.Debug("    Enter - CheckProcesses()");
+
             while (true)
             {
                 var taskIdle = Task.Run(
@@ -289,26 +296,16 @@ namespace ProcessMaster
                         $"{DateTime.Now:HH:mm:ss}: {sbText}"
                     );
                 }
-                   
                 await Task.Delay(_sleepTime);
             }
         }
     }
-
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // END
 ////////////////////////////////////////////////////////////////////////////////
-/**
- * @file
- * @brief Implementation C# file for the main window of this application.
- *
- * @author Mohammad Haroon Khaliq
- * @date @showdate "%d %B %Y"
- * @copyright MIT License.
- */
 // Local Variables:
 // mode: csharp
 // End:
