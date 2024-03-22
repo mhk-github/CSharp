@@ -37,8 +37,10 @@ namespace ProcessMaster
     public sealed partial class MainWindow : Window
     {
         ////////////////////////////////////////////////////////////////////////
-        // STATIC
+        // MEMBER DATA
         ////////////////////////////////////////////////////////////////////////
+
+        // STATIC //////////////////////////////////////////////////////////////
 
         /**
          * <summary>
@@ -49,9 +51,7 @@ namespace ProcessMaster
             System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
         );
 
-        ///////////////////////////////////////////////////////////////////////
-        // MEMBER DATA
-        ///////////////////////////////////////////////////////////////////////
+        // NON-STATIC /////////////////////////////////////////////////////////
 
         /**
          * <summary>
@@ -73,10 +73,88 @@ namespace ProcessMaster
          * </summary>
          */
         private readonly int _sleepTime;
-        
+
         ////////////////////////////////////////////////////////////////////////
         // MEMBER FUNCTIONS
         ////////////////////////////////////////////////////////////////////////
+
+        // STATIC //////////////////////////////////////////////////////////////
+
+        /**
+         * <summary>
+         * Updates process priorities as needed.
+         * </summary>
+         * 
+         * <param name="processNames">
+         * List of process names.
+         * </param>
+         * 
+         * <param name="ppc">
+         * Process priority to enforce.
+         * </param>
+         * 
+         * <returns>
+         * Either null or a message for the last process updated.
+         * </returns>
+         */
+        private static string UpdateProcessPriorities(
+            string[] processNames,
+            ProcessPriorityClass ppc
+        )
+        {
+            s_log.Debug(
+                $"      Enter - UpdateProcessPriorities({processNames}, {ppc})"
+            );
+
+            string msg = null;
+            foreach (var entry in processNames)
+            {
+                var processesArray = Process.GetProcessesByName(entry);
+                foreach (var p in processesArray)
+                {
+                    // Process may already have exited so cater for that
+                    try
+                    {
+                        if (p.PriorityClass != ppc)
+                        {
+                            p.PriorityClass = ppc;
+                            msg = (
+                                $"'{p.ProcessName}' [{p.Id}] priority set to "
+                                + $"{ppc}"
+                            );
+                            s_log.Debug($"        {msg}");
+                        }
+                    }
+                    catch (InvalidOperationException ioe)
+                    {
+                        s_log.Warn(
+                            $"        {ioe.GetType()} with message "
+                            + $"'{ioe.Message}' !"
+                        );
+                    }
+                    catch (Win32Exception we)
+                    {
+                        s_log.Error(
+                            $"        {we.GetType()} with message "
+                            + $"'{we.Message}' !"
+                        );
+                    }
+                    catch (Exception e)
+                    {
+                        s_log.Fatal(
+                            $"        Exception {e.GetType()} with message "
+                            + $"'{e.Message}' !"
+                        );
+                        throw;
+                    }
+                }
+            }
+
+            s_log.Debug("      Leave - UpdateProcessPriorities(...)");
+            return msg;
+        }
+
+        // NON-STATIC //////////////////////////////////////////////////////////
 
         /**
          * <summary>
@@ -181,7 +259,7 @@ namespace ProcessMaster
          * Originator of this event.
          * </param>
          *
-         * <param name="ae">
+         * <param name="ea">
          * Arguments connected to this event.
          * </param>
          */
@@ -200,75 +278,6 @@ namespace ProcessMaster
          */
         async private void CheckProcesses()
         {
-            /**
-             * <summary>
-             * Local function updating process priorities as needed.
-             * </summary>
-             * 
-             * <param name="processNames">
-             * List of process names.
-             * </param>
-             * 
-             * <param name="ppc">
-             * Process priority to enforce.
-             * </param>
-             * 
-             * <returns>
-             * Either null or a message for the last process updated.
-             * </returns>
-             */
-            string UpdateProcessPriorities(
-                string[] processNames, 
-                ProcessPriorityClass ppc
-            )
-            {
-                string msg = null;
-                foreach (var entry in processNames)
-                {
-                    var processesArray = Process.GetProcessesByName(entry);
-                    foreach (var p in processesArray)
-                    {
-                        // Process may already have exited so cater for that
-                        try
-                        {
-                            if (p.PriorityClass != ppc)
-                            {
-                                p.PriorityClass = ppc;
-                                msg = (
-                                    $"'{p.ProcessName}' [{p.Id}] priority set"
-                                    + $" to {ppc}"
-                                );
-                                s_log.Debug($"    {msg}");
-                            }
-                        }
-                        catch (InvalidOperationException ioe)
-                        {
-                            s_log.Warn(
-                                $"    {ioe.GetType()} with message "
-                                + $"'{ioe.Message}' !"
-                            );
-                        }
-                        catch (Win32Exception we)
-                        {
-                            s_log.Error(
-                                $"    {we.GetType()} with message "
-                                + $"'{we.Message}' !"
-                            );
-                        }
-                        catch (Exception e)
-                        {
-                            s_log.Fatal(
-                                $"    Exception {e.GetType()} with message "
-                                + $"'{e.Message}' !"
-                            );
-                            throw;
-                        }
-                    }
-                }
-
-                return msg;
-            }
-
             s_log.Debug("    Enter - CheckProcesses()");
 
             while (true)
