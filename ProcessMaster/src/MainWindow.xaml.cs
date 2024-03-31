@@ -255,31 +255,6 @@ namespace ProcessMaster
 
         /**
          * <summary>
-         * Handler for the timer event. 
-         * </summary>
-         * 
-         * <param name="sender">
-         * Originator of this event.
-         * </param>
-         * 
-         * <param name="ea">
-         * Arguments connected to this event.
-         * </param>
-         */
-        private void Timer_Tick(object sender, EventArgs ea)
-        {
-            s_log.Debug($"  Enter - Timer_Tick({sender}, {ea})");
-            var result = Task.Run(() => CheckProcesses()).Result;
-            if (result != null)
-            {
-                statusBarText.Text = $"{DateTime.Now:HH:mm:ss}: {result}";
-
-            }
-            s_log.Debug("  Leave - Timer_Tick(...)");
-        }
-
-        /**
-         * <summary>
          * Handler for the Unloaded event.
          * </summary>
          *
@@ -300,19 +275,23 @@ namespace ProcessMaster
 
         /**
          * <summary>
-         * Periodically checks processes and sets their priority class.
+         * Handler for the timer event. 
          * </summary>
          * 
-         * <returns>
-         * A task string for one process with an updated priority or null.
-         * </returns>
+         * <param name="sender">
+         * Originator of this event.
+         * </param>
+         * 
+         * <param name="ea">
+         * Arguments connected to this event.
+         * </param>
          */
-        private async Task<string> CheckProcesses()
+        private async void Timer_Tick(object sender, EventArgs ea)
         {
-            s_log.Debug("    Enter - CheckProcesses()");
+            s_log.Debug($"  Enter - Timer_Tick({sender}, {ea})");
 
             var taskIdle = Task.Run(
-                () => 
+                () =>
                 UpdateProcessPriorities(
                     _idleProcessList,
                     ProcessPriorityClass.Idle
@@ -326,9 +305,13 @@ namespace ProcessMaster
                 )
             );
             var results = await Task.WhenAll(taskIdle, taskHigh);
+            var sbText = results[0] ?? results[1];
+            if (sbText != null)
+            {
+                statusBarText.Text = $"{DateTime.Now:HH:mm:ss}: {sbText}";
+            }
 
-            s_log.Debug("    Leave - CheckProcesses()");
-            return results[0] ?? results[1];
+            s_log.Debug("  Leave - Timer_Tick(...)");
         }
     }
 }
